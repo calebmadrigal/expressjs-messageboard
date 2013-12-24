@@ -54,11 +54,21 @@ function put_message(req, res) {
   get_message_list(req, res);
 }
 
+// CORS
+//////////////////////////////////////////////////////////////////////////////////// CORS MIDDLEWARE
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', config.allowedDomains);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////// ROUTES 
 var app = express();
+app.use(express.bodyParser());
 app.use(allowCrossDomain);
 app.use('jsonp callback', true);
-app.use(express.bodyParser());
 
 app.get('/', get_message_list);
 app.get('/messages', get_message_list);

@@ -20,13 +20,13 @@ function insert_id(msg, id) {
 ///////////////////////////////////////////////////////////////////////////////// ENDPOINT FUNCTIONS
 function get_message_list(req, res) {
   var messages_with_ids = _und.map(messages, insert_id);
-  res.json(messages_with_ids);
+  res.jsonp(messages_with_ids);
 }
 
 function get_message(req, res) {
   if(messages.length <= req.params.id || req.params.id < 0) {
     res.statusCode = 404;
-    return res.json({ error: 'Invalid message id' });
+    return res.jsonp({ error: 'Invalid message id' });
   }
 
   var msg = messages[req.params.id];
@@ -36,7 +36,7 @@ function get_message(req, res) {
 function post_message(req, res) {
   if(!req.body.hasOwnProperty('text')) {
     res.statusCode = 400;
-    return res.json({ error: 'Invalid message' });
+    return res.jsonp({ error: 'Invalid message' });
   }  
 
   messages.push({ text: req.body.text });
@@ -47,7 +47,7 @@ function put_message(req, res) {
   if((messages.length <= req.params.id || req.params.id < 0) &&
       (!req.body.hasOwnProperty('text'))) {
     res.statusCode = 400;
-    return res.json({ error: 'Invalid message' });
+    return res.jsonp({ error: 'Invalid message' });
   }  
 
   messages[req.params.id] = { text: req.body.text};
@@ -56,6 +56,7 @@ function put_message(req, res) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////// ROUTES 
 var app = express();
+app.use('jsonp callback', true);
 app.use(express.bodyParser());
 
 app.get('/', get_message_list);

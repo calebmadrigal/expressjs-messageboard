@@ -56,6 +56,7 @@ function put_message(req, res) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////// ROUTES 
 var app = express();
+app.use(allowCrossDomain);
 app.use('jsonp callback', true);
 app.use(express.bodyParser());
 

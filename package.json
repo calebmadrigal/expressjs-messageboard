@@ -1,0 +1,16 @@
+{
+  "name": "expressjs-messageboard",
+  "version": "0.0.1",
+  "description": "Express RESTful API message board.",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "3.4.7",
+    "underscore": "1.5.2"
+  },
+  "repository": "",
+  "author": "Caleb Madrigal",
+  "license": "MIT"
+}

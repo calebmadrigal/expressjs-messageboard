@@ -65,6 +65,6 @@ app.put('/messages/:id', put_message);
 app.post('/messages', post_message);
 
 ////////////////////////////////////////////////////////////////////////////////////// SERVER LISTEN
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3000;
 app.listen(port, function () { console.log("Listening on port " + port); });
 

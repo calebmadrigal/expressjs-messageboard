@@ -54,7 +54,7 @@ function put_message(req, res) {
   get_message_list(req, res);
 }
 
-//////////////////////////////////////////////////////////////////////////////////// CORS MIDDLEWARE
+///////////////////////////////////////////////////////////////////////////////////////// MIDDLEWARE
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -63,10 +63,13 @@ var allowCrossDomain = function(req, res, next) {
     next();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////// ROUTES 
 var app = express();
 app.use(express.bodyParser());
+app.use(express.compress());
+app.use(express.static(__dirname + '/public'));
 app.use(allowCrossDomain);
+
+///////////////////////////////////////////////////////////////////////////////////////////// ROUTES 
 
 app.get('/', get_message_list);
 app.get('/messages', get_message_list);

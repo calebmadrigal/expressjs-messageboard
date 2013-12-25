@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ExpressJS Message Board</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            $(function() {
+                $("#post_button").click(function() {
+                    post_message();
+                });
+                
+                get_messages();
+            });
+            
+            function get_messages() {
+                $.ajax({
+                    url: "/messages",
+                    dataType: "jsonp",
+                    success: function (data) {
+                        update_message_list(data);
+                    }
+                });
+            }
+            
+            function post_message() {
+                var new_message = $("#post_message").val();
+                    
+                $.ajax({
+                    url: "/messages",
+                    type: "POST",
+                    crossDomain: true,
+                    dataType: "json",
+                    data: { "text": new_message },
+                    success: function (data) {
+                        get_messages();
+                    }
+                });
+            }
+            
+            function update_message_list(message_data) {
+                $("#message_list").html("");
+                $.each(message_data, function(index, value) {
+                    $("#message_list").append("<li>" + value.text + "</li>");
+                });
+            }
+        </script>
+    </head>
+    
+    <body>
+    
+    <h3>Messages</h3>
+    <ul id="message_list"></ul>
+    
+    New Message:
+    <input type="text" name="post_message" id="post_message" />
+    <input type="button" name="post_button" id="post_button" value="Post" />
+        
+    </body>
+</html>

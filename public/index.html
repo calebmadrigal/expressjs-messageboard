@@ -15,7 +15,7 @@
             function get_messages() {
                 $.ajax({
                     url: "/messages",
-                    dataType: "jsonp",
+                    dataType: "json",
                     success: function (data) {
                         update_message_list(data);
                     }
@@ -28,7 +28,6 @@
                 $.ajax({
                     url: "/messages",
                     type: "POST",
-                    crossDomain: true,
                     dataType: "json",
                     data: { "text": new_message },
                     success: function (data) {
